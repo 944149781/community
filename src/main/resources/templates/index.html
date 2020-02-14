@@ -32,57 +32,25 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <div>
-                        <a href="https://github.com/login/oauth/authorize?client_id=511f20dc01d20cf7452f&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
-                            <button class="btn btn-success" style="margin-top: 7px">登录</button>
-                        </a>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">菜单<span class="caret"></span></a>
+                <li class="dropdown" th:if="${session.user != null}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #ac2925" th:text="${session.user.getName()}">
+                        <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息</a></li>
                         <li><a href="#">个人信息</a></li>
                         <li><a href="#">注销</a></li>
                     </ul>
                 </li>
+                <li th:if="${session.user == null}">
+                    <div>
+                        <a href="https://github.com/login/oauth/authorize?client_id=511f20dc01d20cf7452f&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
+                            <button class="btn btn-success" style="margin-top: 7px">登录</button>
+                        </a>
+                    </div>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<div class="overCurtain"></div>
-
-<div class="hide-center">
-    <div id="formhead">
-        <div id="formhead-title">
-            User Login
-        </div>
-        <button type="button" id="close">X</button>
-    </div>
-    <div id="formbody">
-        <div class="loginUserName">
-            <input id="input-topright-loginInput" name="userName" class="loginInput" placeholder="请输入账号" type="text">
-        </div>
-        <div class="loginPassword">
-            <input id="input-bottomright-loginInput" name="userPass" class="loginInput" placeholder="请输入密码" type="password" style="border-bottom-right-radius:5px;">
-        </div>
-        <div id="formfoot">
-            <div>
-                <button id="BSignIn" type="submit">登录</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    $("#login").click(function () {
-        $(".hide-center").fadeIn("slow");
-        $(".overCurtain").fadeIn("slow");
-    })
-    $("#close").click(function () {
-        $(".hide-center").fadeOut("slow")
-        $(".overCurtain").fadeOut("slow")
-    })
-</script>
 </body>
 </html>
