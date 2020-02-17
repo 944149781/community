@@ -1,44 +1,44 @@
 package com.liuxiaoyan.gameForum.model;
 
 public class User {
-    private Integer userId;
-    private String accountId;
-    private String userName;
-    private Integer userPower;
+    private Integer user_id;
+    private String account_id;
+    private String user_name;
+    private Integer user_power;
     private String token;
-    private Long gmtCreate;
-    private Long gmtModified;
+    private Long gmt_create;
+    private Long gmt_modified;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getAccount_id() {
+        return account_id;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public Integer getUserPower() {
-        return userPower;
+    public Integer getUser_power() {
+        return user_power;
     }
 
-    public void setUserPower(Integer userPower) {
-        this.userPower = userPower;
+    public void setUser_power(Integer user_power) {
+        this.user_power = user_power;
     }
 
     public String getToken() {
@@ -49,19 +49,32 @@ public class User {
         this.token = token;
     }
 
-    public Long getGmtCreate() {
-        return gmtCreate;
+    public Long getGmt_create() {
+        return gmt_create;
     }
 
-    public void setGmtCreate(Long gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setGmt_create(Long gmt_create) {
+        this.gmt_create = gmt_create;
     }
 
-    public Long getGmtModified() {
-        return gmtModified;
+    public Long getGmt_modified() {
+        return gmt_modified;
     }
 
-    public void setGmtModified(Long gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setGmt_modified(Long gmt_modified) {
+        this.gmt_modified = gmt_modified;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", account_id='" + account_id + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_power=" + user_power +
+                ", token='" + token + '\'' +
+                ", gmt_create=" + gmt_create +
+                ", gmt_modified=" + gmt_modified +
+                '}';
     }
 }
