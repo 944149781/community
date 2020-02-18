@@ -54,5 +54,34 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<div class="container-fluid" style="background-color: white;margin: 40px">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="container-fluid">
+                <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span>所有</h3>
+            </div>
+            <hr>
+            <div class="media" th:each="posts : ${postList}" style="margin-top: 20px">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded" style="width: 60px;height: 60px" th:src="${posts.user.getHead_url()}" >
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${posts.getTitle()}"></h4>
+                    <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
+                        <span th:text="${posts.getComment_count()}"> </span>个回复·
+                        <span th:text="${posts.getView_count()}"></span>次浏览·
+                        <span th:text="${posts.getLike_count()}"></span>次点赞·发布时间：
+                        <span th:text="${#dates.format(posts.getGmt_create(),'yyyy-MM-dd')}"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

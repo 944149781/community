@@ -1,9 +1,10 @@
-package com.liuxiaoyan.gameForum.model;
+package com.liuxiaoyan.gameForum.dto;
 
+import com.liuxiaoyan.gameForum.model.User;
 import lombok.Data;
 
 @Data
-public class Post {
+public class PostDTO {
     private Integer id;
     private String title;
     private String description;
@@ -14,4 +15,5 @@ public class Post {
     private Integer comment_count;
     private Integer view_count;
     private Integer like_count;
+    private User user;
 }
