@@ -13,6 +13,9 @@ public interface PostMapper {
             " values(#{title},#{description},#{creator},#{gmt_create},#{gmt_modified},#{tag})")
     void create(Post post);
 
-    @Select("select * from post")
-    List<Post> list();
+    @Select("select * from post limit #{offSet},#{size}")
+    List<Post> list(Integer offSet, Integer size);
+
+    @Select("select count(1) from post")
+    Integer count();
 }

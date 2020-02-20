@@ -13,7 +13,8 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -35,7 +36,8 @@
                     <a href="/publish"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>发布</a>
                 </li>
                 <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #ac2925" th:text="${session.user.getUser_name()}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" style="color: #ac2925" th:text="${session.user.getUser_name()}">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息</a></li>
@@ -61,10 +63,11 @@
                 <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span>所有</h3>
             </div>
             <hr>
-            <div class="media" th:each="posts : ${postList}" style="margin-top: 20px">
+            <div class="media" th:each="posts : ${pageDTO.getPosts()}" style="margin-top: 20px">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" style="width: 60px;height: 60px" th:src="${posts.user.getHead_url()}" >
+                        <img class="media-object img-rounded" style="width: 60px;height: 60px"
+                             th:src="${posts.user.getHead_url()}">
                     </a>
                 </div>
                 <div class="media-body">
@@ -77,9 +80,38 @@
                     </span>
                 </div>
             </div>
+            <!-- 分页 -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${pageDTO.isShowFirst()}">
+                        <a href="/?page=1" aria-label="First">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pageDTO.isShowPrevious()}">
+                        <a th:href="@{/(page=${pageDTO.page - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="page : ${pageDTO.pages}" th:class="${pageDTO.page == page}? 'active' : ''">
+                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${pageDTO.isShowNext()}">
+                        <a th:href="@{/(page=${pageDTO.page + 1})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pageDTO.isShowEnd()}">
+                        <a th:href="@{/(page=${pageDTO.getAllPage()})}" aria-label="End">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--  -->
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-
+            <h3>热门讨论</h3>
         </div>
     </div>
 </div>
