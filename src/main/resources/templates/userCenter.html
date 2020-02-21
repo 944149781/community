@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body style="background-color: #efefef">
+<div th:replace="header :: header"></div>
+<div class="container-fluid" style="background-color: white;margin: 40px">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="container-fluid">
+                <h3><span th:text="${sectionName}"></span></h3>
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group" style="margin-top: 30px">
+                <a href="/userCenter/myPosts"  th:class="${section == 'myPosts'} ? 'active list-group-item' : 'list-group-item' ">我的帖子</a>
+                <a href="/userCenter/replies"  th:class="${section == 'replies'} ? 'active list-group-item' : 'list-group-item' ">
+                    我的回复
+                    <span class="badge">14</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
