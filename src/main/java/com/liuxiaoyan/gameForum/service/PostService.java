@@ -24,11 +24,31 @@ public class PostService {
     private PostMapper postMapper;
 
     public PageDTO list(Integer page, Integer size) {
+
+        PageDTO pageDTO = new PageDTO();
+
+        Integer allPage;
+
+        Integer allCount = postMapper.count();
+
+        if (allCount % size ==0){
+            allPage = allCount/size;
+        }else {
+            allPage = allCount/size + 1;
+        }
+
+        if (page < 1){
+            page = 1;
+        }
+        if (page > allPage){
+            page = allPage;
+        }
+
+        pageDTO.setPage(allPage,page);
         Integer offSet = size * (page - 1);
 
         List<Post> postList = postMapper.list(offSet, size);
         List<PostDTO> postDTOList = new ArrayList<>();
-        PageDTO pageDTO = new PageDTO();
         for (Post post : postList) {
             User user = userMapper.findById(post.getCreator());
             PostDTO postDTO = new PostDTO();
@@ -37,8 +57,40 @@ public class PostService {
             postDTOList.add(postDTO);
         }
         pageDTO.setPosts(postDTOList);
-        Integer allCount = postMapper.count();
-        pageDTO.setPage(allCount,page,size);
+        return pageDTO;
+    }
+    public PageDTO listByUserId(Integer user_id,Integer page,Integer size){
+        PageDTO pageDTO = new PageDTO();
+        Integer allCount = postMapper.countByUserId(user_id);
+        Integer allPage;
+
+
+        if (allCount % size ==0){
+            allPage = allCount/size;
+        }else {
+            allPage = allCount/size + 1;
+        }
+
+        if (page < 1){
+            page = 1;
+        }
+        if (page > allPage){
+            page = allPage;
+        }
+
+        pageDTO.setPage(allPage,page);
+        Integer offSet = size * (page - 1);
+
+        List<Post> postList = postMapper.listByUserId(user_id,offSet, size);
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (Post post : postList) {
+            User user = userMapper.findById(post.getCreator());
+            PostDTO postDTO = new PostDTO();
+            BeanUtils.copyProperties(post, postDTO);
+            postDTO.setUser(user);
+            postDTOList.add(postDTO);
+        }
+        pageDTO.setPosts(postDTOList);
         return pageDTO;
     }
 }

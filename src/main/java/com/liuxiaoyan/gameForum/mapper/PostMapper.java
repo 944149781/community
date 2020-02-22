@@ -18,4 +18,10 @@ public interface PostMapper {
 
     @Select("select count(1) from post")
     Integer count();
+
+    @Select("select * from post where creator=#{user_id} limit #{offSet},#{size}")
+    List<Post> listByUserId(Integer user_id, Integer offSet, Integer size);
+
+    @Select("select count(1) from post where creator=#{user_id}")
+    Integer countByUserId(Integer user_id);
 }

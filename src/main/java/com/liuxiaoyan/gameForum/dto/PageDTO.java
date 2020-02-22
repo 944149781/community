@@ -16,20 +16,16 @@ public class PageDTO {
     private List<Integer> pages = new ArrayList<>();
     private Integer allPage;
 
-    public void setPage(Integer allCount, Integer page, Integer size) {
+    public void setPage(Integer allPage, Integer page) {
+        this.allPage = allPage;
         this.page = page;
-        if (allCount % size == 0) {
-            this.allPage = allCount / size;
-        } else {
-            this.allPage = (allCount / size) + 1;
-        }
 
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
             if (page - i > 0) {
                 pages.add(0, page - i);
             }
-            if (page + i <= this.allPage) {
+            if (page + i <= allPage) {
                 pages.add(page + i);
             }
         }
