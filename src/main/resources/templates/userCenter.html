@@ -25,7 +25,9 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${posts.getTitle()}"></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/post/'+${posts.getId()}}" th:text="${posts.getTitle()}"></a>
+                    </h4>
                     <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
                         <span th:text="${posts.getComment_count()}"> </span>个回复·
                         <span th:text="${posts.getView_count()}"></span>次浏览·
