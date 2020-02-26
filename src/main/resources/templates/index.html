@@ -21,11 +21,11 @@
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded" style="width: 60px;height: 60px"
-                             th:src="${posts.user.getHead_url()}">
+                             th:src="${posts.getUser().getHead_url()}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${posts.getTitle()}"></h4>
+                    <a th:href="@{'/post/'+${posts.getId()}}"><h4 class="media-heading" th:text="${posts.getTitle()}"></h4></a>
                     <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
                         <span th:text="${posts.getComment_count()}"> </span>个回复·
                         <span th:text="${posts.getView_count()}"></span>次浏览·

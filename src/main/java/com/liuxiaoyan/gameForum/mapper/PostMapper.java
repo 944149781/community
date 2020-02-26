@@ -4,6 +4,7 @@ import com.liuxiaoyan.gameForum.model.Post;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface PostMapper {
 
     @Select("select * from post where id=#{id}")
     Post getById(Integer id);
+
+    @Update("update post set title = #{title},description = #{description},gmt_modified = #{gmt_modified},tag = #{tag} where id = #{id}")
+    void update(Post post);
 }

@@ -102,4 +102,15 @@ public class PostService {
         postDTO.setUser(user);
         return postDTO;
     }
+
+    public void createOrUpdate(Post post) {
+        if (post.getId() == null){
+            post.setGmt_create(System.currentTimeMillis());
+            post.setGmt_modified(post.getGmt_create());
+            postMapper.create(post);
+        }else {
+            post.setGmt_modified(System.currentTimeMillis());
+            postMapper.update(post);
+        }
+    }
 }

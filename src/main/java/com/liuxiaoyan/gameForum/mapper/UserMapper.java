@@ -1,10 +1,7 @@
 package com.liuxiaoyan.gameForum.mapper;
 
 import com.liuxiaoyan.gameForum.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -18,4 +15,9 @@ public interface UserMapper {
     @Select("select * from user where user_id = #{user_id}")
     User findById(@Param("user_id")Integer user_id);
 
+    @Select("select * from user where account_id = #{account_id}")
+    User findByAccountId(String account_id);
+
+    @Update("update user set user_name = #{user_name},token = #{token},gmt_modified = #{gmt_modified},head_url = #{head_url} where user_id = #{user_id}")
+    void update(User dbUser);
 }

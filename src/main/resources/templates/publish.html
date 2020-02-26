@@ -24,6 +24,7 @@
             </div>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">帖子标题</label>
                     <input type="text" class="form-control" th:value="${title}" id="title" name="title"
