@@ -3,6 +3,8 @@ package com.liuxiaoyan.gameForum.service;
 
 import com.liuxiaoyan.gameForum.dto.PageDTO;
 import com.liuxiaoyan.gameForum.dto.PostDTO;
+import com.liuxiaoyan.gameForum.exception.CustomizeError;
+import com.liuxiaoyan.gameForum.exception.CustomizeException;
 import com.liuxiaoyan.gameForum.mapper.PostMapper;
 import com.liuxiaoyan.gameForum.mapper.UserMapper;
 import com.liuxiaoyan.gameForum.model.Post;
@@ -96,6 +98,9 @@ public class PostService {
 
     public PostDTO getById(Integer id) {
         Post post = postMapper.getById(id);
+        if (post == null){
+            throw new CustomizeException(CustomizeError.POST_NOT_FOUND);
+        }
         PostDTO postDTO = new PostDTO();
         BeanUtils.copyProperties(post, postDTO);
         User user = userMapper.findById(post.getCreator());
@@ -112,5 +117,9 @@ public class PostService {
             post.setGmt_modified(System.currentTimeMillis());
             postMapper.update(post);
         }
+    }
+
+    public void updateViewCount(Integer id) {
+        postMapper.updateViewCount(id);
     }
 }
