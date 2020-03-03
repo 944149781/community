@@ -34,4 +34,7 @@ public interface PostMapper {
 
     @Update("update post set view_count = view_count + 1 where id = #{id}")
     void updateViewCount(Integer id);
+
+    @Update("update post set comment_count = comment_count + 1 where id = #{id}")
+    void incCommentCount(Post post);
 }
