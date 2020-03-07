@@ -37,4 +37,7 @@ public interface PostMapper {
 
     @Update("update post set comment_count = comment_count + 1 where id = #{id}")
     void incCommentCount(Post post);
+
+    @Select("select * from post where id != #{id} and tag regexp #{tag}")
+    List<Post> selectRelated(Post post);
 }

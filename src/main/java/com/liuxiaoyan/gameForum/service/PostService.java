@@ -9,12 +9,15 @@ import com.liuxiaoyan.gameForum.mapper.PostMapper;
 import com.liuxiaoyan.gameForum.mapper.UserMapper;
 import com.liuxiaoyan.gameForum.model.Post;
 import com.liuxiaoyan.gameForum.model.User;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -121,5 +124,21 @@ public class PostService {
 
     public void updateViewCount(Integer id) {
         postMapper.updateViewCount(id);
+    }
+
+    public List<PostDTO> selectRelated(PostDTO postDTO) {
+        String[] tags = StringUtils.split(postDTO.getTag(),",");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Post post = new Post();
+        post.setId(postDTO.getId());
+        post.setTag(regexpTag);
+
+        List<Post> posts = postMapper.selectRelated(post);
+        List<PostDTO> postDTOS = posts.stream().map(p -> {
+            PostDTO postDTO1 = new PostDTO();
+            BeanUtils.copyProperties(p,postDTO1);
+            return postDTO1;
+        }).collect(Collectors.toList());
+        return postDTOS;
     }
 }

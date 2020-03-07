@@ -32,7 +32,6 @@ public class CommentController {
         comment.setCommentator(17);
         comment.setGmt_create(System.currentTimeMillis());
         comment.setGmt_modified(System.currentTimeMillis());
-        System.out.println(comment.toString());
         commentMapper.insert(comment);
         Post post = postMapper.getById(comment.getParent_id());
         postMapper.incCommentCount(post);
