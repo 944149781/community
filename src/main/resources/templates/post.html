@@ -5,8 +5,13 @@
     <title>主页</title>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
+    <script src="/js/jquery-3.4.1.min.js" type="text/javascript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/editormd.min.js"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
+
 </head>
 <body style="background-color: #efefef">
 <div th:replace="header :: header"></div>
@@ -34,7 +39,16 @@
                     <span class="label label-info glyphicon glyphicon-tag" style="margin-left: 5px" th:text="${tag}"></span>
                 </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${post.getDescription()}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="markdown-view">
+                    <!-- Server-side output Markdown text -->
+                    <textarea style="display:none;" th:text="${post.getDescription()}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                         editormd.markdownToHTML("markdown-view", {
+                        });
+                    });
+                </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
             <h4>
@@ -103,9 +117,9 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
-                <ul>
+                <ul style="list-style: none;padding-left: 0px;line-height: 30px">
                    <li th:each="related : ${relatedPost}">
-                       <a th:href="@{'/post/'+${related.id}}" th:text="${related.title}"></a>
+                       <a th:href="@{'/post/'+${related.id}}" th:text="${related.title}" style="text-decoration: none"></a>
                    </li>
                 </ul>
             </div>
