@@ -1,5 +1,6 @@
 package com.liuxiaoyan.gameForum.mapper;
 
+import com.liuxiaoyan.gameForum.dto.PostSearchDTO;
 import com.liuxiaoyan.gameForum.model.Post;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,4 +41,10 @@ public interface PostMapper {
 
     @Select("select * from post where id != #{id} and tag regexp #{tag}")
     List<Post> selectRelated(Post post);
+
+    @Select("select count(*) from post where title regexp #{search}")
+    Integer countBySearch(PostSearchDTO postSearchDTO);
+
+    @Select("select * from post where title regexp #{search} order by gmt_create desc limit #{page},#{size}")
+    List<Post> selectBySearch(PostSearchDTO postSearchDTO);
 }

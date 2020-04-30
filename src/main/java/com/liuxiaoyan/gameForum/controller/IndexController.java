@@ -22,4 +22,16 @@ public class IndexController {
         model.addAttribute("pageDTO", pageDTO);
         return "index";
     }
+
+    @GetMapping("/search")
+    public String search(Model model,
+                         @RequestParam(name = "page", defaultValue = "1") Integer page,
+                         @RequestParam(name = "size", defaultValue = "5") Integer size,
+                         @RequestParam(name = "search") String search){
+
+        PageDTO pageDTO = postService.listSearch(search,page,size);
+        model.addAttribute("pageDTO",pageDTO);
+        model.addAttribute("search",search);
+        return "index";
+    }
 }

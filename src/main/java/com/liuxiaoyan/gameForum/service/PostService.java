@@ -3,6 +3,7 @@ package com.liuxiaoyan.gameForum.service;
 
 import com.liuxiaoyan.gameForum.dto.PageDTO;
 import com.liuxiaoyan.gameForum.dto.PostDTO;
+import com.liuxiaoyan.gameForum.dto.PostSearchDTO;
 import com.liuxiaoyan.gameForum.exception.CustomizeError;
 import com.liuxiaoyan.gameForum.exception.CustomizeException;
 import com.liuxiaoyan.gameForum.mapper.PostMapper;
@@ -140,5 +141,50 @@ public class PostService {
             return postDTO1;
         }).collect(Collectors.toList());
         return postDTOS;
+    }
+
+    public PageDTO listSearch(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search," ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+        PageDTO pageDTO = new PageDTO();
+
+        Integer allPage;
+
+        PostSearchDTO postSearchDTO = new PostSearchDTO();
+        postSearchDTO.setSearch(search);
+        Integer allCount = postMapper.countBySearch(postSearchDTO);
+
+        if (allCount % size ==0){
+            allPage = allCount/size;
+        }else {
+            allPage = allCount/size + 1;
+        }
+
+        if (page < 1){
+            page = 1;
+        }
+        if (page > allPage){
+            page = allPage;
+        }
+
+        pageDTO.setPage(allPage,page);
+        Integer offSet = size * (page - 1);
+
+
+        postSearchDTO.setPage(offSet);
+        postSearchDTO.setSize(size);
+        List<Post> postList = postMapper.selectBySearch(postSearchDTO);
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (Post post : postList) {
+            User user = userMapper.findById(post.getCreator());
+            PostDTO postDTO = new PostDTO();
+            BeanUtils.copyProperties(post, postDTO);
+            postDTO.setUser(user);
+            postDTOList.add(postDTO);
+        }
+        pageDTO.setPosts(postDTOList);
+        return pageDTO;
     }
 }
