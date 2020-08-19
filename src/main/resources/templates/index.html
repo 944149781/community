@@ -15,6 +15,21 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <div class="container-fluid">
                 <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span>所有</h3>
+
+                <span th:each="plate : ${plates}">
+                    <a th:href="@{'/search?search='+${plate.getPlate_name()}}"><button type="button" class="btn btn-primary btn-sm" th:text="${plate.plate_name}"></button></a>
+                </span>
+
+                <a th:href="@{'/users'}" style="float: right">
+                    <button th:if="${session.user != null && session.user.getUser_power() == 1}"
+                            class="btn btn-success">管理用户
+                    </button>
+                </a>
+                <a th:href="@{'/plate'}" style="float: right">
+                    <button th:if="${session.user != null && session.user.getUser_power() == 1}" class="btn btn-info">
+                        板块管理
+                    </button>
+                </a>
             </div>
             <hr>
             <div class="media" th:each="posts : ${pageDTO.getPosts()}" style="margin-top: 20px">
@@ -25,7 +40,8 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <a th:href="@{'/post/'+${posts.getId()}}"><h4 class="media-heading" th:text="${posts.getTitle()}"></h4></a>
+                    <a th:href="@{'/post/'+${posts.getId()}}"><h4 class="media-heading"
+                                                                  th:text="${posts.getTitle()}"></h4></a>
                     <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
                         <span th:text="${posts.getComment_count()}"> </span>个回复·
                         <span th:text="${posts.getView_count()}"></span>次浏览·
@@ -66,6 +82,11 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>热门讨论</h3>
+            <ul style="list-style: none;padding-left: 0px;line-height: 30px">
+                <li th:each="postDTO : ${postDTOList}">
+                    <a th:href="@{'/post/'+${postDTO.id}}" th:text="${postDTO.title}" style="text-decoration: none"></a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
